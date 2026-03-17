@@ -16,6 +16,18 @@ from app.models import auth as auth_models, client, contract, payment
 # Crea las tablas en la base de datos si no existen
 Base.metadata.create_all(bind=engine)
 
+# Auto-seeding del admin (opcional: podrías mover esto a una tarea o comando aparte)
+try:
+    from scripts.seed_admin import seed_admin
+    print("Ejecutando seed de administrador...")
+    seed_admin()
+except ImportError:
+    # Si no se encuentra el script en el path, intentamos importarlo de otra forma
+    # o simplemente ignoramos si estamos en un entorno donde no debe ejecutarse
+    print("Aviso: No se pudo ejecutar el seed automático del admin.")
+except Exception as e:
+    print(f"Error en seed automático: {e}")
+
 # Creación de la instancia principal de FastAPI
 app = FastAPI(title="LexContract API", version="1.0.0")
 
