@@ -26,4 +26,4 @@ EXPOSE 8000
 # Comando para ejecutar la aplicación. Usamos uvicorn.
 # Nota: Railway pasa la variable de entorno $PORT dinámicamente.
 # En Railway, es importante enlazar al host 0.0.0.0 y al puerto que Railway asigna.
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
