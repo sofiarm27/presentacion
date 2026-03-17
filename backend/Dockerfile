@@ -3,8 +3,10 @@ FROM python:3.11-slim
 # Establecer el directorio de trabajo
 WORKDIR /app
 
-# Instalar dependencias del sistema necesarias para PostgreSQL y compilación
-RUN apt-get update && apt-get install -y \
+# Instalar dependencias del sistema necesarias
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
     gcc \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
