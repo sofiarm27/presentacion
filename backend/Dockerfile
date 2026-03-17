@@ -12,13 +12,13 @@ RUN apt-get update -y && \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar el archivo de requerimientos
-COPY requirements.txt .
+COPY backend/requirements.txt .
 
 # Instalar las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar el código de la aplicación (asume que la carpeta backend/app se copia)
-COPY ./ /app/
+# Copiar el código de la aplicación
+COPY backend/ /app/
 
 # Exponer el puerto (Railway inyecta $PORT, pero por convención ponemos 8000)
 EXPOSE 8000
