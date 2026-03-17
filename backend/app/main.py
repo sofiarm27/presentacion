@@ -39,19 +39,10 @@ app = FastAPI(title="LexContract API", version="1.0.0")
 # -------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",       # Frontend Vite (desarrollo)
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",       # Puerto alternativo Vite
-        "http://127.0.0.1:5174",
-        "http://[::1]:5173",           # IPv6 local
-        "http://[::1]:5174",
-        "http://localhost:3000",       # Puerto React clásico (por compatibilidad)
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=["*"],      # Permitir todos los dominios en producción (ajustar luego por seguridad)
     allow_credentials=True,   # Permite envío de cookies y headers de autenticación
-    allow_methods=["*"],      # Permite todos los métodos HTTP (GET, POST, PUT, DELETE...)
     allow_headers=["*"],      # Permite todos los headers
+    allow_methods=["*"],      # Permite todos los métodos HTTP
     expose_headers=["*"],
 )
 
