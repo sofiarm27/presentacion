@@ -35,7 +35,8 @@ COPY nginx.conf /etc/nginx/templates/default.conf.template
 # Copiar el build compilado del frontend a Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Nginx corre en el puerto 80 por defecto
-EXPOSE 80
+# Limitar procesos de Nginx y eliminar script de IPv6 que puede causar conflictos
+RUN sed -i 's/worker_processes  auto;/worker_processes  1;/g' /etc/nginx/nginx.conf && \
+    rm -f /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
 
 CMD ["nginx", "-g", "daemon off;"]
