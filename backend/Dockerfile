@@ -20,10 +20,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el código de la aplicación
 COPY backend/ /app/
 
-# Exponer el puerto (Railway inyecta $PORT, pero por convención ponemos 8000)
+# Exponer el puerto 8000 explícitamente
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación. Usamos uvicorn.
-# Nota: Railway pasa la variable de entorno $PORT dinámicamente.
-# En Railway, es importante enlazar al host 0.0.0.0 y al puerto que Railway asigna.
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+# Comando para ejecutar la aplicación. Usamos uvicorn en el puerto 8000 fijo.
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
